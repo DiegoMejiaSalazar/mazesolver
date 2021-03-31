@@ -1,0 +1,12 @@
+.maze {
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 7.5em);
+    justify-content: center;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+}

@@ -1,0 +1,25 @@
+.isObstacle {
+    background-color: black;
+}
+
+.isVisited {
+    background-color: #276c99;
+}
+
+.isPath {
+    background-color: #11d888;
+}
+
+.box {
+    height: 20px;
+    width: 20px;
+    border: 1px solid black;
+    border-radius: 3px;
+    color: coral;
+}
+
+.boxChildrenRow {
+    margin-top: calc(1em/9);
+    margin-left: calc(1em/8.2);
+}
+
