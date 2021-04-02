@@ -1,5 +1,5 @@
 .isObstacle {
-    background-color: black;
+    background-color: var(--forth-color);
 }
 
 .isVisited {
@@ -10,16 +10,22 @@
     background-color: #11d888;
 }
 
+.isUnknown {
+    background-color: var(--sixth-color);
+}
+
 .box {
-    height: 20px;
-    width: 20px;
-    border: 1px solid black;
+    height: 22px;
+    width: 22px;
+    border: none;
     border-radius: 3px;
-    color: coral;
+    color: rgb(255, 255, 255);
 }
 
 .boxChildrenRow {
-    margin-top: calc(1em/9);
-    margin-left: calc(1em/8.2);
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 

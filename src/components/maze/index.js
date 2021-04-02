@@ -4,13 +4,7 @@ import PropTypes from 'prop-types';
 
 
 function Maze({
-	rows,
-	columns,
-	agentPosition,
-	targetPosition,
-	isPressed,
-	setIsPressed,
-	maze
+		maze
 	}) {
 	return <section className={style.maze}>
 		<div className={style.maze}>

@@ -1,5 +1,10 @@
 .container {
     display: flex;
+    justify-content: space-between;
+}
+
+.containerOptions {
+    display: flex;
     column-gap: 1em;
 }
 

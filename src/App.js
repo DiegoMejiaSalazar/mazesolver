@@ -1,10 +1,13 @@
 import Home from "./containers/home";
 import './App.css'
+import {ContextProvider} from "./HOC/ContextProvider"
 
 function App() {
   return (
     <div className="App">
-        <Home/>
+        <ContextProvider>
+            <Home/>
+        </ContextProvider>
     </div>
   );
 }

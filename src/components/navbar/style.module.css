@@ -1,4 +1,4 @@
 .component {
-    background-color: coral;
+    background-color: var(--primary-color);
     padding: 1em;
 }

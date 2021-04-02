@@ -1,3 +1,16 @@
+* {
+  --primary-color: #008891;
+  --second-color: #e7e7de;
+  --third-color: #00587a;
+  --forth-color: #0f3057;
+  --fifth-color: #11d888;
+  --sixth-color: #276c99;
+}
+
 body {
   margin: 0;
+}
+
+.App {
+  background-color: var(--second-color);
 }

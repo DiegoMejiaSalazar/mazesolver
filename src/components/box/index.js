@@ -10,20 +10,16 @@ function Box({
                  isObstacle,
                  children,
                  mouseEnterEvent,
-                 mouseDownEvent,
-                 mouseUpEvent,
-				 providerProps
+                 mouseClicked,
 			}) {
     return 	<div
-				{...providerProps.droppableProps}
-				ref={providerProps.innerRef}
 	            onMouseEnter={mouseEnterEvent}
-	            onMouseDown={mouseDownEvent}
-	            onMouseUp={mouseUpEvent}
+	            onClick={mouseClicked}
 	            className={`box ${classNames({
 	                'isObstacle': isObstacle,
 	                'isVisited': isVisited,
 	                'isPath': isPath,
+                    'isUnknown': !isObstacle && !isVisited && !isPath 
 	            })}`}>
 	            <div className="boxChildrenRow">
 	                {children}

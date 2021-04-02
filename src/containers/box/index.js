@@ -1,47 +1,35 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import Box from '../../components/box'
-import style from './style.module.css'
-import {Droppable, Draggable} from "react-beautiful-dnd";
+import { DataContext } from '../../HOC/ContextProvider';
 
-function MazeCell({children, isPressed, setIsPressed, mazeId, xaxis, yaxis, columns, isDragging, setIsDragging}) {
+function MazeCell({children, isPressed, setIsPressed, mazeId, xaxis, yaxis}) {
 
     function eventMouseEnter() {
-		if (!isPressed) {
-			return;
-		}
-        setIsObstacle(!isObstacle)
+        if (!isPressed) {
+            return;
+        }
+        const aux = [...mazeData]
+        setMazeData([...aux.slice(0, xaxis), [...aux[xaxis].slice(0, yaxis), {isObstacle: !aux[xaxis][yaxis].isObstacle, isPath: false, isVisited: false}, ...aux[xaxis].slice(yaxis + 1)], ...aux.slice(xaxis + 1)])
     }
-    const [isVisited, setIsVisited] = useState(false)
-    const [isPath, setIsPath] = useState(false)
-    const [isObstacle, setIsObstacle] = useState(false)
-    return <div className={style.container}>
-        <Droppable droppableId={mazeId}>
-			{(dropppableProvided) => {
-				return <Box
-					providerProps={dropppableProvided}
-	                isVisited={isVisited}
-	                isPath={isPath}
-	                isObstacle={isObstacle}
-	                mouseEnterEvent={() => {
-	                    eventMouseEnter()
-	                }}
-	                mouseDownEvent={() => {
-	                    setIsPressed(true)
-	                    setIsObstacle(!isObstacle)
-	                }}
-	                mouseUpEvent={() =>  {setIsPressed(false)}}
-	            >
-					<Draggable draggableId={`${(xaxis * columns) + yaxis}`} index={(xaxis * columns) + yaxis}>
-						{(provided) => (<div 
-											{...provided.draggableProps}
-											{...provided.dragHandleProps}
-											ref={provided.innerRef}
-										>{children}</div>)}
-					</Draggable>
-					</Box>	
-			}}
-        </Droppable>
-    </div>
+    const {mazeData, setMazeData} = useContext(DataContext)
+
+
+    return <div>
+                <Box
+                    isVisited={mazeData[xaxis][yaxis].isVisited}
+                    isPath={mazeData[xaxis][yaxis].isPath}
+                    isObstacle={mazeData[xaxis][yaxis].isObstacle}
+                    mouseEnterEvent={() => {
+                        eventMouseEnter()
+                    }}
+                    mouseClicked={() => {
+                        setIsPressed(!isPressed)
+                    }
+                    }
+                >
+                    {children}
+                </Box>
+            </div>
 }
 
 export default MazeCell;
