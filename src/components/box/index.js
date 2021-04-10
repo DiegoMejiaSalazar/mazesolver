@@ -2,13 +2,15 @@ import React from 'react'
 import './style.css'
 import classNames from "classnames";
 import PropTypes from "prop-types";
-
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faDotCircle} from "@fortawesome/free-solid-svg-icons";
 
 function Box({
                  isVisited,
                  isPath,
                  isObstacle,
-                 children,
+                 isTarget,
+                 isTraveler,
                  mouseEnterEvent,
                  mouseClicked,
 			}) {
@@ -22,7 +24,7 @@ function Box({
                     'isUnknown': !isObstacle && !isVisited && !isPath 
 	            })}`}>
 	            <div className="boxChildrenRow">
-	                {children}
+                    {isTraveler && <FontAwesomeIcon icon={faDotCircle} />}
 	            </div>
     		</div>
 }
@@ -31,9 +33,10 @@ Box.propTypes = {
     isVisited: PropTypes.bool,
     isPath: PropTypes.bool,
     isObstacle: PropTypes.bool,
+    isTarget: PropTypes.bool,
+    isTraveler: PropTypes.bool,
     mouseEnterEvent: PropTypes.func,
-    mouseDownEvent: PropTypes.func,
-    mouseUpEvent: PropTypes.func
+    mouseClicked: PropTypes.func
 
 }
 
@@ -41,9 +44,10 @@ Box.defaultProps = {
     isVisited: false,
     isPath: false,
     isObstacle: false,
+    isTarget: false,
+    isTraveler: false,
     mouseEnterEvent: () => {},
-    mouseDownEvent: () => {},
-    mouseUpEvent: () => {}
+    mouseClicked: () => {}
 }
 
 export default Box

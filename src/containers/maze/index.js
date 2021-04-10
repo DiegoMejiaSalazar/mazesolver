@@ -1,32 +1,28 @@
 import React, {useState, useContext} from "react";
 import MazeComponent from '../../components/maze'
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {DataContext} from '../../HOC/ContextProvider'
-import {faDotCircle} from "@fortawesome/free-solid-svg-icons";
 import MazeCell from '../../containers/box';
+import {DataContext} from '../../HOC/ContextProvider';
 
-function Maze({rows, columns, agentPosition, targetPosition}) {
+function Maze() {
+    const {mazeDimensions} = useContext(DataContext)
     const [isPressed, setIsPressed] = useState(false)
-    const {mazeData, setMazeData} = useContext(DataContext)
-    const maze = () => {
+    const displayableLaberinth = () => {
         const result = []
-        for (let i = 0; i < rows; i++) {
+        for (let i = 0; i < mazeDimensions.rows; i++) {
             result.push([])
-            for (let j = 0; j < columns; j++) {
+            for (let j = 0; j < mazeDimensions.columns; j++) {
                 result[i].push(<MazeCell
                     isPressed={isPressed}
                     setIsPressed={setIsPressed}
-                    mazeId={`${i}-${j}`}
                     xaxis={i}
                     yaxis={j}
                 />)
             }
         }
-
         return result
     }
-    return <MazeComponent rows={rows}
-                   maze={maze}
+    return <MazeComponent
+                   laberinth={displayableLaberinth}
     />
 }
 

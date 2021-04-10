@@ -1,27 +1,25 @@
-import React, {createContext, useState} from 'react';
+import React, {createContext, useState } from 'react';
 
 export const DataContext = createContext()
 
 export const ContextProvider = ({children}) => {
 
-    const [mazeDimensions, setMazeDimensions] = useState({rows: 15, columns: 30})
-    const result = []
-    for (let i = 0; i < mazeDimensions.rows; i++) {
-        result.push([])
-        for (let j = 0; j < mazeDimensions.columns; j++) {
-            result[i].push({
-                isPath: false,
-                isObstacle: false,
-                isVisited: false
-            })
-        }
-    }
-    const [mazeData, setMazeData] = useState(result)
+    const [mazeDimensions, setMazeDimensions] = useState({rows: 0, columns: 0})
+    const [mazeIsBuilt, setMazeIsBuilt] = useState(true)
+    const [agentPosition, setAgentPosition] = useState([0, 0])
+    const [targetPosition, setTargetPosition] = useState([3, 10])
+    const [mazeData, setMazeData] = useState([])
     return <DataContext.Provider value={{
         mazeData,
         setMazeData,
         mazeDimensions,
-        setMazeDimensions
+        setMazeDimensions,
+        setMazeIsBuilt,
+        mazeIsBuilt,
+        agentPosition,
+        setAgentPosition,
+        targetPosition,
+        setTargetPosition
     }}>
         {children}
     </DataContext.Provider>

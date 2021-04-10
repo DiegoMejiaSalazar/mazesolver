@@ -1,6 +1,7 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import NavigationBar from "../../components/navbar";
 import Button from "../../components/button";
+import LoadingMask from "../../components/loading-mask";
 import Maze from "../../containers/maze";
 import style from './style.module.css';
 import {DataContext} from "../../HOC/ContextProvider";
@@ -8,48 +9,61 @@ import {DataContext} from "../../HOC/ContextProvider";
 
 
 function Home() {
-    const {mazeData, setMazeData, mazeDimensions, setMazeDimensions} = useContext(DataContext)
+    const {mazeIsBuilt,mazeData, setMazeIsBuilt, setMazeData, mazeDimensions, setMazeDimensions, agentPosition, targetPosition} = useContext(DataContext)
 
-    function setUpMaze() {
+    useEffect(() => {
+        setMazeIsBuilt(true)
+    },[mazeData, setMazeIsBuilt, agentPosition, targetPosition])
+    async function setUpMaze(rows, columns) {
         const result = []
-        for (let i = 0; i < mazeDimensions.rows; i++) {
+        for (let i = 0; i < rows; i++) {
             result.push([])
-            for (let j = 0; j < mazeDimensions.columns; j++) {
+            for (let j = 0; j < columns; j++) {
                 result[i].push({
                     isPath: false,
                     isObstacle: false,
-                    isVisited: false
+                    isVisited: false,
+                    isTarget: false,
+                    isTraveler: false
                 })
             }
         }
-        setMazeData(result)
+
+        return result;
     }
+
     return (
         <section className={style.mazeContainer}>
             <NavigationBar>
             <div className={style.container}>
                 <div className={style.containerOptions}>
-                    <Button text="start"/>
+                    <Button text="start" onClick={() => {console.log("start")}}/>
                     <Button text="settings"/>
                 </div>
                 <div className={style.containerOptions}>
-                    <Button text="small" onClick={() => {
+                    <Button text="small" onClick={async () => {
                         setMazeDimensions({rows: 15, columns: 30})
-                        setUpMaze()
+                        setMazeIsBuilt(false)
+                        await setMazeData(await setUpMaze(15, 30))
                     }}/>
-                    <Button text="medium" onClick={() => {
+                    <Button text="medium" onClick={async () => {
+                        setMazeIsBuilt(false)
                         setMazeDimensions({rows: 20, columns: 40})
-                        setUpMaze()
+                        await setMazeData(await setUpMaze(20, 40))
                     }}/>
-                    <Button text="big" onClick={() => {
+                    <Button text="big" onClick={async () => {
                         setMazeDimensions({rows: 25, columns: 60})
-                        setUpMaze()
+                        setMazeIsBuilt(false)
+                        await setMazeData(await setUpMaze(25, 60))
                     }}/>
                 </div>
 
             </div>
             </NavigationBar>
-            <Maze rows={mazeDimensions.rows} columns={mazeDimensions.columns} agentPosition={[3,4]} />
+            {mazeIsBuilt ?
+                (<Maze/>) :
+                    <LoadingMask/> }
+
         </section>
     );
 }
