@@ -23,13 +23,12 @@ function MazeCell({isPressed, setIsPressed, xaxis, yaxis}) {
                     eventMouseEnter()
                 }}
                 mouseClicked={() => {
+                    console.log(isPressed)
                     setIsPressed(!isPressed)
                 }
                 }
             />
         </div>
-    } else {
-        return <div>cargando</div>
     }
 
 

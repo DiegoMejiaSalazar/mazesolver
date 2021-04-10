@@ -6,8 +6,8 @@ export const ContextProvider = ({children}) => {
 
     const [mazeDimensions, setMazeDimensions] = useState({rows: 0, columns: 0})
     const [mazeIsBuilt, setMazeIsBuilt] = useState(true)
-    const [agentPosition, setAgentPosition] = useState([0, 0])
-    const [targetPosition, setTargetPosition] = useState([3, 10])
+    const [agentPosition, setAgentPosition] = useState({row: 0, column: 0})
+    const [targetPosition, setTargetPosition] = useState({row: 4, column: 0})
     const [mazeData, setMazeData] = useState([])
     return <DataContext.Provider value={{
         mazeData,
@@ -19,7 +19,7 @@ export const ContextProvider = ({children}) => {
         agentPosition,
         setAgentPosition,
         targetPosition,
-        setTargetPosition
+        setTargetPosition,
     }}>
         {children}
     </DataContext.Provider>

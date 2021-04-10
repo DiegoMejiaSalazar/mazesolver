@@ -6,10 +6,9 @@ import PropTypes from 'prop-types';
 function Maze({
 		laberinth
 	}) {
-	console.log(laberinth())
 	return <section className={style.maze}>
 		<div className={style.maze}>
-			{laberinth().map((x, index) => {
+			{laberinth.map((x, index) => {
 				return <div key={index} className={style.row}>
 					{x.map((y, indexy) => {
 						return <div key={`${index}-${indexy}`}>{y}</div>

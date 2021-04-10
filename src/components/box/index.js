@@ -13,8 +13,10 @@ function Box({
                  isTraveler,
                  mouseEnterEvent,
                  mouseClicked,
+                 reference
 			}) {
     return 	<div
+                ref={reference}
 	            onMouseEnter={mouseEnterEvent}
 	            onClick={mouseClicked}
 	            className={`box ${classNames({
